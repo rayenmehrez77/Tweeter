@@ -1,31 +1,28 @@
 import React from "react";
 import cover from "../images/cover.jpg";
-import { Post, Sidebar, User } from "../Components";
+import { About, Followers, Intro, Photos, Posts, User } from "../Components";
 import { MdPhotoCamera } from "react-icons/md";
+import { Route, Switch } from "react-router-dom";
 
 const ProfilePage = () => {
   return (
     <div>
       <div className="relative">
-        <img src={cover} alt="cover" className="h-96 object-cover w-full" />
-        <div className="flex items-center bg-white rounded p-2 w-56 cursor-pointer justify-center space-x-3 font-medium absolute bottom-3 right-6">
-          <MdPhotoCamera className="w-6 h-6" />
-          <span>Edit Cover Photo</span>
+        <img
+          src={cover}
+          alt="cover"
+          className="h-56 lg:h-96 object-cover w-full"
+        />
+        <div className="flex items-center bg-white rounded p-2  lg:w-56  cursor-pointer  justify-center lg:space-x-3 space-x-0 font-medium absolute bottom-3 right-6">
+          <MdPhotoCamera className="w-6 h-6 " />
+          <span className="hidden lg:flex">Edit Cover Photo</span>
         </div>
       </div>
-      <div className="relative -top-16">
+      <div>
         <User />
-        <div className="max-w-6xl mx-auto mt-6 flex space-x-6">
-          <Sidebar
-            btn1="Tweets"
-            btn2="Tweets & replies"
-            btn3="Media"
-            btn4="Likes"
-          />
-          <div className="flex-1 space-y-6">
-            <Post />
-            <Post />
-          </div>
+        <div className="lg:max-w-6xl lg:flex mx-auto mt-6 space-x-6 ">
+          <Intro />
+          <Posts />
         </div>
       </div>
     </div>

@@ -7,16 +7,16 @@ import { Fade } from "react-reveal";
 const UserToFollow = () => {
   return (
     <Fade big cascade>
-      <div className="my-6 border-b-2">
-        <div className="flex items-center">
-          <div className="flex items-center">
+      <div className="my-6 ">
+        <div className="flex items-center ">
+          <div className="flex items-center ">
             <img
               src={personImg}
               alt=""
               className="w-12 h-12 rounded-lg object-cover"
             />
             <div className="ml-4">
-              <h1 className="font-bold text-sm text-gray-700">
+              <h1 className="font-bold text-sm text-gray-700 dark:text-gray-200">
                 Mikael Stanley
               </h1>
               <span className="text-xs font-medium text-gray-400">
@@ -29,7 +29,7 @@ const UserToFollow = () => {
             Follow
           </button>
         </div>
-        <p className="mt-4 font-medium text-gray-600">
+        <p className="mt-4 font-medium text-gray-600 dark:text-gray-200">
           Photographer & Filmmaker based in Copenhagen, Denmark ✵ 🇩🇰
         </p>
         <img
