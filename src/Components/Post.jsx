@@ -7,8 +7,10 @@ import { BsArrowRepeat, BsCardImage } from "react-icons/bs";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { useState } from "react";
 import { Fade } from "react-reveal";
+import { add_Bookmarks } from "../redux/bookmarks/actions";
+import { connect } from "react-redux";
 
-const Post = () => {
+const Post = ({ add_Bookmarks }) => {
   const [commented, setCommented] = useState(false);
 
   return (
@@ -93,4 +95,8 @@ const Post = () => {
   );
 };
 
-export default Post;
+export const mapDispatchToProps = (dispatch) => ({
+  add_Bookmarks: (item) => dispatch(add_Bookmarks(item)),
+});
+
+export default connect(null, mapDispatchToProps)(Post);
