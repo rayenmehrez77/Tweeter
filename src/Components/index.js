@@ -17,6 +17,7 @@ import About from "./About";
 import Followers from "./Followers";
 import Photos from "./Photos";
 import Dropdown from "./Dropdown";
+import Comment from "./Comment";
 
 export {
   Navbar,
@@ -37,4 +38,5 @@ export {
   Followers,
   Photos,
   Dropdown,
+  Comment,
 };

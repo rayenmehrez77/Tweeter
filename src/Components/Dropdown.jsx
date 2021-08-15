@@ -8,6 +8,7 @@ import { HiLogout } from "react-icons/hi";
 import { FiHelpCircle } from "react-icons/fi";
 import { RiSettings4Fill } from "react-icons/ri";
 import { IoSunny } from "react-icons/io5";
+import { auth } from "../firebase/firebase";
 
 const Dropdown = () => {
   const { toggle, setToggle } = useContext(ThemeContext);
@@ -67,7 +68,12 @@ const Dropdown = () => {
           <div className="w-10 h-10 p-2 flex items-center dark:bg-gray-600 border rounded-full border-gray-500">
             <HiLogout className="w-8 h-8 dark:text-white" />
           </div>
-          <h1 className="dark:text-white font-medium">Log Out</h1>
+          <h1
+            className="dark:text-white font-medium"
+            onClick={() => auth.signOut()}
+          >
+            Log Out
+          </h1>
         </div>
       </div>
     </Fade>

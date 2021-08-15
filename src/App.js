@@ -17,28 +17,7 @@ import { selectCurrentUser } from "./redux/user/Selectors";
 import { connect } from "react-redux";
 
 function App({ currentUser, setCurrentUser }) {
-  console.log(currentUser);
-  useEffect(() => {
-    let unsubscribeFromAuth = null;
-    unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
-
-    return unsubscribeFromAuth();
-  }, []);
-
-  return !currentUser ? (
+  return (
     <>
       <Navbar />
       <Switch>
@@ -51,11 +30,6 @@ function App({ currentUser, setCurrentUser }) {
         </main>
       </Switch>
     </>
-  ) : (
-    <Switch>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/signup" component={SignUpPage} />
-    </Switch>
   );
 }
 export const mapStateToProps = createStructuredSelector({

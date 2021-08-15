@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import cover from "../images/cover.jpg";
-import { About, Followers, Intro, Photos, Posts, User } from "../Components";
+import {
+  About,
+  Followers,
+  Intro,
+  Photos,
+  Post,
+  Posts,
+  User,
+} from "../Components";
 import { MdPhotoCamera } from "react-icons/md";
-import { Route, Switch } from "react-router-dom";
+import { ThemeContext } from "../context/themeContext";
 
 const ProfilePage = () => {
+  const { posts, setPosts } = useContext(ThemeContext);
+
   return (
     <div>
       <div className="relative">
@@ -22,7 +32,11 @@ const ProfilePage = () => {
         <User />
         <div className="lg:max-w-6xl lg:flex mx-auto mt-6 space-x-6 ">
           <Intro />
-          <Posts />
+          <div className="space-y-6">
+            {posts?.map((post) => {
+              return <Post key={post.id} post={post} posts={posts} />;
+            })}
+          </div>
         </div>
       </div>
     </div>
