@@ -18,6 +18,7 @@ import Followers from "./Followers";
 import Photos from "./Photos";
 import Dropdown from "./Dropdown";
 import Comment from "./Comment";
+import Spinner from "./Spinner";
 
 export {
   Navbar,
@@ -39,4 +40,5 @@ export {
   Photos,
   Dropdown,
   Comment,
+  Spinner,
 };

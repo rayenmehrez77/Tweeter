@@ -2,21 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { persistor, store } from "./redux/store/store";
-import { Provider } from "react-redux";
+import { persistor } from "./redux/store/store";
 import { BrowserRouter as Router } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "./context/themeContext";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ThemeProvider>
-      <Router>
-        <PersistGate persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Router>
-    </ThemeProvider>
-  </Provider>,
+  <ThemeProvider>
+    <Router>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Router>
+  </ThemeProvider>,
   document.getElementById("root")
 );

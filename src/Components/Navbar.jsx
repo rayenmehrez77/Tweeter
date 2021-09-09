@@ -5,11 +5,12 @@ import { ReactComponent as LogoDark } from "../images/tweeter-light.svg";
 import profileImage from "../images/profileImage.jpg";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { useState } from "react";
-import { HiMoon } from "react-icons/hi";
-import { Fade } from "react-reveal";
+// import { HiMoon } from "react-icons/hi";
+// import { Fade } from "react-reveal";
 import { IoNotifications, IoSunny } from "react-icons/io5";
 import { ThemeContext } from "../context/themeContext";
 import { Dropdown } from "../Components";
+import AuthService from "../services/AuthService";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);

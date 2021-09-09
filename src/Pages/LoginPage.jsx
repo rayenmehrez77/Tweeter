@@ -1,26 +1,48 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 import { ReactComponent as Facebook } from "../images/facebook.svg";
 import { ReactComponent as Google } from "../images/google.svg";
-import socialMediaAuth from "../firebase/service";
 import { ReactComponent as Logo } from "../images/tweeter.svg";
 import tweetImg from "../images/tweet.jpg";
-import {
-  facebookProvider,
-  googleProvider,
-} from "../firebase/authenticationMethod";
-import { setCurrentUser } from "../redux/user/actions";
-import { connect } from "react-redux";
+import { login } from "../services/AuthService";
+import { Spinner } from "../Components";
 
-const LoginPage = ({ setCurrentUser }) => {
-  const handleOnClick = async (provider) => {
-    const res = await socialMediaAuth(provider);
-    const { photoURL, email, displayName } = res;
-    setCurrentUser({
-      photoURL,
-      email,
-      displayName,
-    });
+const LoginPage = ({ history }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setMessage("");
+    setLoading(true);
+
+    if (email === "" || password === "") {
+      setError("Fields are required");
+      return;
+    }
+
+    if (email && password) {
+      login(email, password).then(
+        () => {
+          history.push("/");
+          window.location.reload();
+        },
+        (error) => {
+          const resMessage =
+            (error.response && error.response && error.response.message) ||
+            error.message ||
+            error.toString();
+
+          setLoading(false);
+          setMessage(resMessage);
+        }
+      );
+    } else {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,22 +57,16 @@ const LoginPage = ({ setCurrentUser }) => {
             Log in
           </h1>
           <div className="flex items-center space-x-8 justify-center mt-8">
-            <button
-              className="flex items-center space-x-3 bg-white shadow rounded-md py-2 px-8"
-              onClick={() => handleOnClick(facebookProvider)}
-            >
+            <button className="flex items-center space-x-3 bg-white shadow rounded-md py-2 px-8">
               <Facebook className="w-6 h-6" />
               <h1 className="text-sm font-medium">Facebook</h1>
             </button>
-            <button
-              className="flex items-center space-x-3 bg-white shadow rounded-md py-2 px-8"
-              onClick={() => handleOnClick(googleProvider)}
-            >
+            <button className="flex items-center space-x-3 bg-white shadow rounded-md py-2 px-8">
               <Google className="w-6 h-6" />
               <h1 className="text-sm font-medium">Google</h1>
             </button>
           </div>
-          <form className="">
+          <form onSubmit={handleLogin}>
             <div className="mt-8 flex items-center">
               <div className="border-b w-1/2 bg-gray-800"></div>
               <div className="mx-4 font-medium">or</div>
@@ -63,6 +79,8 @@ const LoginPage = ({ setCurrentUser }) => {
               <input
                 type="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="border py-2 rounded-md outline-none focus:ring-1 focus:ring-purple-400 pl-2"
               />
             </div>
@@ -73,6 +91,8 @@ const LoginPage = ({ setCurrentUser }) => {
               <input
                 type="password"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="border py-2 rounded-md outline-none focus:ring-1 focus:ring-purple-400 pl-2"
               />
             </div>
@@ -89,10 +109,17 @@ const LoginPage = ({ setCurrentUser }) => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 gradient mt-4 rounded-md font-medium bg-blue-500 text-white"
+              disabled={loading}
+              className="w-full flex items-center justify-center py-2 gradient mt-4 rounded-md font-medium bg-blue-500 text-white"
             >
+              {loading && <Spinner />}
               Log in
             </button>
+            {message && (
+              <div className="text-red-500 font-medium">
+                <p>{message || error}</p>
+              </div>
+            )}
             <p className="font-medium text-center mt-4">
               Don't have an account?{" "}
               <Link to="/signup" className="text-blue-600">
@@ -106,8 +133,4 @@ const LoginPage = ({ setCurrentUser }) => {
   );
 };
 
-export const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default withRouter(LoginPage);

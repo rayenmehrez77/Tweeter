@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { firestore } from "../firebase/firebase";
-import { collectIdsAndDocs } from "../firebase/utilities";
 
 const getInitialTheme = () => {
   if (typeof window !== "undefined" && window.localStorage) {
@@ -26,22 +24,6 @@ export const ThemeProvider = ({ initialTheme, children }) => {
   const [likes, setLikes] = useState(0);
   const [bookmarks, setBookmarks] = useState([]);
 
-  let unsubscribe = null;
-
-  const fetchComments = async () => {
-    unsubscribe = firestore.collection("comments").onSnapshot((snapshot) => {
-      const comments = snapshot.docs.map(collectIdsAndDocs);
-      setAllComments(comments);
-    });
-  };
-
-  const fetchPosts = async () => {
-    unsubscribe = firestore.collection("posts").onSnapshot((snapshot) => {
-      const posts = snapshot.docs.map(collectIdsAndDocs);
-      setPosts(posts);
-    });
-  };
-
   const checkTheme = (existing) => {
     const root = window.document.documentElement;
     const isDark = existing === "dark";
@@ -56,21 +38,9 @@ export const ThemeProvider = ({ initialTheme, children }) => {
     checkTheme(initialTheme);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     checkTheme(theme);
   }, [theme]);
-
-  useEffect(() => {
-    fetchPosts();
-
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    fetchComments();
-
-    return () => unsubscribe();
-  }, []);
 
   return (
     <ThemeContext.Provider

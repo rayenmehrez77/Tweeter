@@ -21,11 +21,11 @@ const BookmarksPage = () => {
             btn3="Media"
             btn4="Likes"
           />
-          <div className="space-y-6">
+          {/* <div className="space-y-6">
             {bookmarks?.map((post) => {
               return <Post key={post.id} post={post} posts={posts} />;
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

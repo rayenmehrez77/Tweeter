@@ -1,17 +1,11 @@
 import React, { useContext } from "react";
 import { BiLike } from "react-icons/bi";
 import { ThemeContext } from "../context/themeContext";
-import { firestore } from "../firebase/firebase";
 import profileImage from "../images/profileImage.jpg";
 
 const Comment = ({ comment }) => {
   console.log(comment);
 
-  const { allComments, setAllComments } = useContext(ThemeContext);
-
-  const removeComment = async (id) => {
-    await firestore.doc(`comments/${id}`).delete();
-  };
   return (
     <div>
       <div className="flex items-start">
@@ -30,12 +24,7 @@ const Comment = ({ comment }) => {
         <button className="flex items-center font-medium space-x-2 text-gray-700 dark:text-white">
           Like
         </button>
-        <button
-          className="text-red-500 font-medium"
-          onClick={() => removeComment(comment.id)}
-        >
-          Delete
-        </button>
+        <button className="text-red-500 font-medium">Delete</button>
       </div>
     </div>
   );
