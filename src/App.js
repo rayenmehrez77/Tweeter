@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Redirect, Route, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter, useHistory } from "react-router-dom";
 import { MobileNav, Navbar } from "./Components";
+import { useEffect } from "react"; 
 
 import {
   HomePage,
@@ -14,24 +14,36 @@ import { getCurrentUser } from "./services/AuthService";
 
 function App() {
   const user = getCurrentUser();
-  console.log(user);
+  console.log(user)
+
+    if(!user) {
+      return (
+        <>
+        <Switch>
+          <main className="bg-gray-100 dark:bg-gray-900">
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/signup" component={SignUpPage} />
+            <MobileNav />
+          </main>
+        </Switch>
+      </>
+      )
+    }
+   
 
   return (
     <>
-      <Navbar />
+      <Navbar /> 
       <Switch>
         <main className="bg-gray-100 dark:bg-gray-900 pt-16">
           <Route
             exact
             path="/"
-            render={() => (user ? <HomePage /> : <Redirect to="/login" />)}
+            component={HomePage}
           />
           <Route exact path="/explore" component={ExplorePage} />
           <Route exact path="/bookmarks" component={BookmarksPage} />
           <Route exact path="/profile" component={ProfilePage} />
-          <Route exact path="/profile" component={ProfilePage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/signup" component={SignUpPage} />
           <MobileNav />
         </main>
       </Switch>
@@ -39,4 +51,4 @@ function App() {
   );
 }
 
-export default withRouter(App);
+export default App;

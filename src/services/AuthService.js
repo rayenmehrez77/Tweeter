@@ -1,7 +1,8 @@
 // Authentication service
 import axios from "axios";
 
-const API_URL = "https://twetterclone.herokuapp.com/auth/";
+const API_URL = "https://twetterclone.herokuapp.com/auth/"; 
+
 
 export const login = (email, password) => {
   return axios
@@ -16,9 +17,6 @@ export const login = (email, password) => {
     });
 };
 
-export const logout = () => {
-  localStorage.removeItem("user");
-};
 
 export const register = (username, email, password) => {
   return axios
@@ -31,6 +29,13 @@ export const register = (username, email, password) => {
       console.log(res);
     });
 };
+
+
+export const logout = () => {
+  localStorage.removeItem("user"); 
+  window.location = "/login";
+} 
+
 
 export const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));

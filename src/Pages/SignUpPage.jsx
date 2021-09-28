@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import { ReactComponent as Logo } from "../images/tweeter.svg";
 import tweetImg from "../images/tweet.jpg";
 import { register } from "../services/AuthService";
@@ -24,20 +24,21 @@ const vpassword = (value) => {
   }
 };
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="text-red-500 font-medium">This field is required!</div>
-    );
-  }
-};
+// const required = (value) => {
+//   if (!value) {
+//     return (
+//       <div className="text-red-500 font-medium">This field is required!</div>
+//     );
+//   }
+// };
 
-const SignUpPage = ({ history }) => {
+const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
+  const history = useHistory(); 
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -48,8 +49,10 @@ const SignUpPage = ({ history }) => {
     if (username && email && password) {
       register(username, email, password).then(
         (res) => {
-          setMessage(res.data.message);
+          console.log(res)
           setSuccessful(true);
+          history.push("/login")
+
         },
         (error) => {
           const resMessage =

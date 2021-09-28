@@ -45,6 +45,7 @@ const LoginPage = ({ history }) => {
     }
   };
 
+
   return (
     <div className="lg:flex">
       <div className="w-1/2 h-screen">
@@ -83,6 +84,7 @@ const LoginPage = ({ history }) => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="border py-2 rounded-md outline-none focus:ring-1 focus:ring-purple-400 pl-2"
               />
+              <p>{error && error}</p>
             </div>
             <div className="flex flex-col mt-2">
               <label htmlFor="password" className="mb-2 font-medium">
@@ -95,6 +97,7 @@ const LoginPage = ({ history }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="border py-2 rounded-md outline-none focus:ring-1 focus:ring-purple-400 pl-2"
               />
+              <p>{error && error}</p>
             </div>
             <div className="flex items-center justify-between mt-4">
               <div className="flex items-center space-x-2">
@@ -117,7 +120,7 @@ const LoginPage = ({ history }) => {
             </button>
             {message && (
               <div className="text-red-500 font-medium">
-                <p>{message || error}</p>
+                <p>{message}</p>
               </div>
             )}
             <p className="font-medium text-center mt-4">
