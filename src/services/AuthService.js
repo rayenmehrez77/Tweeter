@@ -31,10 +31,11 @@ export const register = (username, email, password) => {
 };
 
 
-export const logout = () => {
-  localStorage.removeItem("user"); 
-  window.location = "/login";
-} 
+// export const logout = () => {
+//   localStorage.removeItem("user"); 
+//   history.push("/login")
+//   // window.location = "/login";
+// } 
 
 
 export const getCurrentUser = () => {
