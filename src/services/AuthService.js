@@ -31,13 +31,17 @@ export const register = (username, email, password) => {
 };
 
 
-// export const logout = () => {
-//   localStorage.removeItem("user"); 
-//   history.push("/login")
-//   // window.location = "/login";
-// } 
-
-
 export const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
+};
+
+export const setPost = (body, comment, image, public) => {
+   return axios.post(API_URL + "/feed/create-tweet", {
+     body,
+     comment, 
+     image, 
+     public
+   }).then((res) => {
+      console.log(res);
+   })
 };

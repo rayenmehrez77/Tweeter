@@ -1,7 +1,7 @@
 import React, { useContext,  } from "react";
 import { HiMoon } from "react-icons/hi";
 import { Fade } from "react-reveal";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { ThemeContext } from "../context/themeContext";
 import profileImg from "../images/profileImage.jpg";
 import { HiLogout } from "react-icons/hi";
@@ -9,13 +9,14 @@ import { FiHelpCircle } from "react-icons/fi";
 import { RiSettings4Fill } from "react-icons/ri";
 import { IoSunny } from "react-icons/io5";
 
+
 const Dropdown = () => {
   const { toggle, setToggle } = useContext(ThemeContext);
   const { theme, setTheme } = useContext(ThemeContext);
 
   const logout = () => {
     localStorage.removeItem("user"); 
-    window.location = "/login";
+    window.location = "/login"
   } 
 
   return (

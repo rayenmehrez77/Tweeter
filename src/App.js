@@ -22,7 +22,7 @@ function App() {
         <Switch>
           <main className="bg-gray-100 dark:bg-gray-900">
             <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/signup" component={SignUpPage} />
+            <Route path="/signup" component={SignUpPage} />
             <MobileNav />
           </main>
         </Switch>

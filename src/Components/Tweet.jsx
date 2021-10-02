@@ -12,15 +12,7 @@ const Tweet = ({ posts, setPosts }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const docRef = await firestore
-      .collection("posts")
-      .add({ description: description, image: image });
-    const doc = await docRef.get();
-    const newPost = collectIdsAndDocs(doc);
-
-    setPosts([newPost, ...posts]);
-    setDescription("");
+    
   };
 
   const onImageChange = async (event) => {
